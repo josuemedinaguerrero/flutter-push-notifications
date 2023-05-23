@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:notificaciones/screens/screens.dart';
+import 'package:notificaciones/services/push_notifications_service.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await PushNotificationService.initializeApp();
 
-class MyApp extends StatelessWidget {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+
+    PushNotificationService.messagesStream.listen((message) {
+      print('MyApp: $message');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
