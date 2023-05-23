@@ -5,9 +5,11 @@ class MessageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments ?? '';
+
     return Scaffold(
       appBar: AppBar(title: const Text('Message')),
-      body: const Center(child: Text('Message Screen')),
+      body: Center(child: Text('$args')),
     );
   }
 }
